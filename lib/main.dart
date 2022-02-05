@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prayertimes/routes/router.dart';
 import 'package:prayertimes/screens/home_page/home_page.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prayertimes/data/service/get_data_dio.dart';
 import 'package:prayertimes/screens/home_page/components/home_page_main_parts.dart';
-
 
 class PrayerTimes extends StatefulWidget {
   const PrayerTimes({Key? key}) : super(key: key);
@@ -31,6 +31,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
           ),
         ),
       ),
+     
     );
   }
 }
