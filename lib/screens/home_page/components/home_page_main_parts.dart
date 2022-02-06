@@ -1,10 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:prayertimes/core/constants/regions.dart';
 import 'package:prayertimes/data/database/lagmondata.dart';
 import 'package:prayertimes/data/model/service_model.dart';
 import 'package:prayertimes/data/service/get_data_dio.dart';
+import 'package:prayertimes/data/service/hive_service.dart';
 
 class HomePageMainParts {
   getFirstPart(context) {
@@ -46,16 +48,11 @@ class HomePageMainParts {
               Enum internetconnectivity =
                   await (Connectivity().checkConnectivity());
 
+              Box<ModelApi>? data;
+
               if (internetconnectivity == ConnectivityResult.mobile ||
                   internetconnectivity == ConnectivityResult.ethernet) {
-                List<ModelApi>? myData =
-                    await GetData(myRegions[choosenRegionIndex])
-                        .dataReturn()
-                        .then(
-                  (value) {
-                    print(value);
-                  },
-                );
+                data = await HiveService.writeGetAllData();
               } else {
                 showAlertDialog(context);
               }

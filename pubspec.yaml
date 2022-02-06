@@ -37,6 +37,9 @@ dependencies:
   auto_size_text: ^3.0.0
   dio: ^4.0.4
   connectivity_plus: ^2.2.0
+  hive: ^2.0.5
+  hive_flutter: ^1.1.0
+  path_provider: ^2.0.8
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +51,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
+  hive_generator: ^1.1.2
+  build_runner: ^2.1.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
