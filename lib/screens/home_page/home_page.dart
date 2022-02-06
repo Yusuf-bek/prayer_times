@@ -19,8 +19,8 @@ class _PrayerTimesState extends State<PrayerTimes> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            HomePageMainParts.getFirstPart(context),
-            HomePageMainParts.getSeondPart(context),
+            HomePageMainParts().getFirstPart(context),
+            HomePageMainParts().getSeondPart(context),
           ],
         ),
         decoration: const BoxDecoration(

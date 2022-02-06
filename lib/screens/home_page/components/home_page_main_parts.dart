@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:prayertimes/core/constants/regions.dart';
 import 'package:prayertimes/data/database/lagmondata.dart';
@@ -6,7 +7,7 @@ import 'package:prayertimes/data/model/service_model.dart';
 import 'package:prayertimes/data/service/get_data_dio.dart';
 
 class HomePageMainParts {
-  static getFirstPart(context) {
+  getFirstPart(context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
       height: MediaQuery.of(context).size.height * 0.2,
@@ -42,12 +43,22 @@ class HomePageMainParts {
           ),
           IconButton(
             onPressed: () async {
-              List<ModelApi>? myData =
-                  await GetData(myRegions[choosenRegionIndex])
-                      .dataReturn()
-                      .then((value) {
-                print(value);
-              });
+              Enum internetconnectivity =
+                  await (Connectivity().checkConnectivity());
+
+              if (internetconnectivity == ConnectivityResult.mobile ||
+                  internetconnectivity == ConnectivityResult.ethernet) {
+                List<ModelApi>? myData =
+                    await GetData(myRegions[choosenRegionIndex])
+                        .dataReturn()
+                        .then(
+                  (value) {
+                    print(value);
+                  },
+                );
+              } else {
+                showAlertDialog(context);
+              }
             },
             icon: const Icon(
               Icons.refresh,
@@ -59,7 +70,7 @@ class HomePageMainParts {
     );
   }
 
-  static getSeondPart(context) {
+  getSeondPart(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.6,
       height: MediaQuery.of(context).size.height * 0.7,
@@ -80,5 +91,23 @@ class HomePageMainParts {
         itemCount: 5,
       ),
     );
+  }
+
+  showAlertDialog(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("!"),
+            content: const Text("You do not have internet connection"),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Ok"))
+            ],
+          );
+        });
   }
 }
