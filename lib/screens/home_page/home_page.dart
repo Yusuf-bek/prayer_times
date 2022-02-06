@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prayertimes/core/constants/asset_image_paths.dart';
 import 'package:prayertimes/data/service/get_data_dio.dart';
 import 'package:prayertimes/screens/home_page/components/home_page_main_parts.dart';
 
@@ -23,10 +24,10 @@ class _PrayerTimesState extends State<PrayerTimes> {
             HomePageMainParts().getSeondPart(context),
           ],
         ),
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
           color: Colors.transparent,
           image: DecorationImage(
-            image: AssetImage("assets/background/bomdod.jpeg"),
+            image: AssetImage(asssetImagePaths[currentImageIndex]),
             fit: BoxFit.cover,
           ),
         ),

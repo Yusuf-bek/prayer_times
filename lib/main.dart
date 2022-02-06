@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'NamozVaqtlari',
       theme: MyPrimaryTheme.getPrimaryTheme(),
       home: const PrayerTimes(),
-      initialRoute: "/",
+      initialRoute: "/appspage",
       onGenerateRoute: (settings) => GenerateRouter.generateRoute(settings),
     );
   }
