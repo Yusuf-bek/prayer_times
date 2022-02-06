@@ -1,6 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:prayertimes/core/constants/regions.dart';
 import 'package:prayertimes/data/database/lagmondata.dart';
+import 'package:prayertimes/data/model/service_model.dart';
+import 'package:prayertimes/data/service/get_data_dio.dart';
 
 class HomePageMainParts {
   static getFirstPart(context) {
@@ -12,10 +15,10 @@ class HomePageMainParts {
         children: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, "/searchpage");
+              Navigator.pushNamed(context, "/appspage");
             },
             icon: const Icon(
-              Icons.search,
+              Icons.apps,
               color: Colors.white,
             ),
           ),
@@ -38,7 +41,14 @@ class HomePageMainParts {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              List<ModelApi>? myData =
+                  await GetData(myRegions[choosenRegionIndex])
+                      .dataReturn()
+                      .then((value) {
+                print(value);
+              });
+            },
             icon: const Icon(
               Icons.refresh,
               color: Colors.white,
