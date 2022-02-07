@@ -7,8 +7,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:prayertimes/data/service/get_data_dio.dart';
 
 class HiveService {
-  
-
   static Future initializHive() async {
     Directory dir = await getApplicationDocumentsDirectory();
     Hive.init(dir.path);
@@ -20,8 +18,13 @@ class HiveService {
     await Hive.box("apidata").clear();
 
     await GetData(myRegions[choosenRegionIndex]).dataReturn().then((value) {
-       Hive.box("apidata").put("apidata", value);
+      Hive.box("apidata").put("apidata", value);
     });
+  }
+
+  static Future<ModelApi> getData() async {
+    await Hive.openBox("apidata");
+    return Hive.box("apidata").get("apidata")[DateTime.now().day];
   }
 
   static regsterAllAdapters() {

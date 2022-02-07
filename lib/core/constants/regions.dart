@@ -5,3 +5,5 @@ List<String> myRegions = [
 ];
 
 int choosenRegionIndex = 0;
+
+List<String> prayerNames = ["bomdod"];

@@ -2,9 +2,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:prayertimes/core/constants/regions.dart';
+import 'package:prayertimes/data/model/service_model.dart';
 import 'package:prayertimes/data/service/hive_service.dart';
 
 class HomePageMainParts {
+  ModelApi? prayerTimes;
+  HomePageMainParts(this.prayerTimes);
+
   getFirstPart(context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
@@ -31,7 +35,7 @@ class HomePageMainParts {
             ),
             child: Center(
               child: AutoSizeText(
-                "Uzbekistan/" +  myRegions[choosenRegionIndex],
+                "Uzbekistan/" + myRegions[choosenRegionIndex],
                 softWrap: true,
                 style: TextStyle(
                     color: Colors.white,
@@ -47,6 +51,7 @@ class HomePageMainParts {
               if (internetconnectivity == ConnectivityResult.mobile ||
                   internetconnectivity == ConnectivityResult.ethernet) {
                 HiveService.updateData();
+                
               } else {
                 showAlertDialog(context);
               }
@@ -59,31 +64,67 @@ class HomePageMainParts {
         ],
       ),
     );
-    
   }
-  
-  
 
   getSeondPart(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.6,
       height: MediaQuery.of(context).size.height * 0.7,
-      child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return Container(
-            margin: const EdgeInsets.all(10),
-            width: MediaQuery.of(context).size.width * 0.6,
-            height: MediaQuery.of(context).size.height * 0.1,
-            child: Text(""),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.green.withOpacity(0.2),
-              border: Border.all(width: 0.5, color: Colors.white),
-            ),
-          );
-        },
-        itemCount: 5,
+      child: Column(children: [
+        prayerTimeShowContainer(
+          context,
+          name: "Bomdod",
+          prayerTime: prayerTimes!.times!.tongSaharlik,
+        ),
+        prayerTimeShowContainer(
+          context,
+          name: "Peshin",
+          prayerTime: prayerTimes!.times!.peshin,
+        ),
+
+        prayerTimeShowContainer(
+          context,
+          name: "Asr",
+          prayerTime: prayerTimes!.times!.asr,
+        ),
+
+        prayerTimeShowContainer(
+          context,
+          name: "Shom",
+          prayerTime: prayerTimes!.times!.shomIftor,
+        ),
+
+        prayerTimeShowContainer(
+          context,
+          name: "Hufton",
+          prayerTime: prayerTimes!.times!.hufton,
+        ),
+
+      ]),
+    );
+  }
+
+  Container prayerTimeShowContainer(context,
+      {String? name, String? prayerTime}) {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      width: MediaQuery.of(context).size.width * 0.6,
+      height: MediaQuery.of(context).size.height * 0.1,
+      child: Center(
+        child: Text(
+          name! + " : " + prayerTime!,
+          style: TextStyle(
+
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: MediaQuery.of(context).size.width * 0.065,
+          ),
+        ),
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.green.withOpacity(0.44),
+        border: Border.all(width: 0.5, color: Colors.white),
       ),
     );
   }
@@ -105,5 +146,4 @@ class HomePageMainParts {
           );
         });
   }
-  
 }
