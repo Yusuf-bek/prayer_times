@@ -1,11 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:prayertimes/core/constants/regions.dart';
-import 'package:prayertimes/data/database/lagmondata.dart';
-import 'package:prayertimes/data/model/service_model.dart';
-import 'package:prayertimes/data/service/get_data_dio.dart';
 import 'package:prayertimes/data/service/hive_service.dart';
 
 class HomePageMainParts {
@@ -35,7 +31,7 @@ class HomePageMainParts {
             ),
             child: Center(
               child: AutoSizeText(
-                addressTimeZones,
+                "Uzbekistan/" +  myRegions[choosenRegionIndex],
                 softWrap: true,
                 style: TextStyle(
                     color: Colors.white,
@@ -48,11 +44,9 @@ class HomePageMainParts {
               Enum internetconnectivity =
                   await (Connectivity().checkConnectivity());
 
-              Box<ModelApi>? data;
-
               if (internetconnectivity == ConnectivityResult.mobile ||
                   internetconnectivity == ConnectivityResult.ethernet) {
-                data = await HiveService.writeGetAllData();
+                HiveService.updateData();
               } else {
                 showAlertDialog(context);
               }
@@ -65,7 +59,10 @@ class HomePageMainParts {
         ],
       ),
     );
+    
   }
+  
+  
 
   getSeondPart(BuildContext context) {
     return SizedBox(
@@ -78,6 +75,7 @@ class HomePageMainParts {
             margin: const EdgeInsets.all(10),
             width: MediaQuery.of(context).size.width * 0.6,
             height: MediaQuery.of(context).size.height * 0.1,
+            child: Text(""),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.green.withOpacity(0.2),
@@ -107,4 +105,5 @@ class HomePageMainParts {
           );
         });
   }
+  
 }

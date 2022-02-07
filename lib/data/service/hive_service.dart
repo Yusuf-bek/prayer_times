@@ -7,25 +7,21 @@ import 'package:path_provider/path_provider.dart';
 import 'package:prayertimes/data/service/get_data_dio.dart';
 
 class HiveService {
-  static Box<ModelApi>? myBox;
+  
 
   static Future initializHive() async {
     Directory dir = await getApplicationDocumentsDirectory();
     Hive.init(dir.path);
-    myBox = await Hive.openBox("apidata");
+    await Hive.openBox("apidata");
   }
 
-  static Future<Box<ModelApi>?> writeGetAllData() async {
+  static void updateData() async {
     await initializHive();
-    await myBox!.clear();
+    await Hive.box("apidata").clear();
 
     await GetData(myRegions[choosenRegionIndex]).dataReturn().then((value) {
-      for (ModelApi i in value) {
-        myBox!.add(i);
-      }
+       Hive.box("apidata").put("apidata", value);
     });
-
-    return myBox;
   }
 
   static regsterAllAdapters() {

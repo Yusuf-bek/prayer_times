@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:prayertimes/core/constants/asset_image_paths.dart';
-import 'package:prayertimes/data/service/get_data_dio.dart';
+import 'package:prayertimes/data/model/service_model.dart';
 import 'package:prayertimes/screens/home_page/components/home_page_main_parts.dart';
 
 class PrayerTimes extends StatefulWidget {
@@ -24,7 +25,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
             HomePageMainParts().getSeondPart(context),
           ],
         ),
-        decoration:  BoxDecoration(
+        decoration: BoxDecoration(
           color: Colors.transparent,
           image: DecorationImage(
             image: AssetImage(asssetImagePaths[currentImageIndex]),
@@ -32,7 +33,6 @@ class _PrayerTimesState extends State<PrayerTimes> {
           ),
         ),
       ),
-     
     );
   }
 }
