@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:hive/hive.dart';
 import 'package:prayertimes/core/constants/regions.dart';
 import 'package:prayertimes/data/model/service_model.dart';
@@ -23,8 +24,21 @@ class HiveService {
   }
 
   static Future<ModelApi> getData() async {
+    Enum internetconnectivity = await (Connectivity().checkConnectivity());
+
+    if (internetconnectivity == ConnectivityResult.mobile ||
+        internetconnectivity == ConnectivityResult.ethernet) {
+       updateData();
+       await Hive.openBox("apidata");
+       return Hive.box("apidata").get("apidata")[DateTime.now().day - 1];
+
+    } else{
     await Hive.openBox("apidata");
-    return Hive.box("apidata").get("apidata")[DateTime.now().day];
+    return Hive.box("apidata").get("apidata")[DateTime.now().day - 1];
+    }
+
+
+   
   }
 
   static regsterAllAdapters() {

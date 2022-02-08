@@ -1,3 +1,8 @@
+import 'package:prayertimes/screens/apps/hadis/hadis_page.dart';
+import 'package:prayertimes/screens/apps/musxaf/musxaf_page.dart';
+import 'package:prayertimes/screens/apps/zikr/zikr_page.dart';
+import 'package:prayertimes/screens/settings/settings_page.dart';
+
 List<String> asssetImagePaths = [
   "assets/background/bomdod.jpeg",
   "assets/background/peshin.jpeg",
@@ -22,6 +27,9 @@ List<String> assetAppsNames = [
   "Settings",
 ];
 
-
-
-
+List assetAppsNavigatePath = [
+  "/musxafpage",
+  "/hadispage"
+  "/zikrpage"
+  "/settingspage"
+];

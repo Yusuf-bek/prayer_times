@@ -25,39 +25,45 @@ class AppsPage extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.65,
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.all(10),
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.13,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.green.withOpacity(0.3),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CircleAvatar(
-                          radius: MediaQuery.of(context).size.width * 0.15,
-                          backgroundImage: AssetImage(
-                            assetIconAppsPaths[index],
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, assetAppsNavigatePath[index]);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.13,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.green.withOpacity(0.3),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CircleAvatar(
+                            radius: MediaQuery.of(context).size.width * 0.15,
+                            backgroundImage: AssetImage(
+                              assetIconAppsPaths[index],
+                            ),
+                            backgroundColor: Colors.transparent,
                           ),
-                          backgroundColor: Colors.transparent,
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.55,
-                          height: MediaQuery.of(context).size.height * 0.13,
-                          child: Center(
-                            child: Text(
-                              assetAppsNames[index],
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.1),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.55,
+                            height: MediaQuery.of(context).size.height * 0.13,
+                            child: Center(
+                              child: Text(
+                                assetAppsNames[index],
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.1),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },
